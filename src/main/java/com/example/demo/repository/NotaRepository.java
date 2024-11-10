@@ -3,9 +3,9 @@ package com.example.demo.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.Factura;
+import com.example.demo.entity.Nota;
 @Repository
-public interface FacturaRepository extends JpaRepository<Factura, Long> 
+public interface NotaRepository extends JpaRepository<Nota, Long> 
  {
 
 }

@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="clientes")
-public class Cliente {
+@Table(name="cursos")
+public class Curso {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -30,13 +30,7 @@ public class Cliente {
 	@Column(name="nombre")
     private String nombre;
 	
-	@Column(name="apellido paterno")
-    private String apellido2;
-	@Column(name="apellido materno")
-    private String apellido1;
-	@Column(name="dni", length = 8)
-	private String dni;
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "clientes")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "cursos")
     @JsonIgnore
-    private Set<Factura> facturas;
+    private Set<Nota> notas;
 }

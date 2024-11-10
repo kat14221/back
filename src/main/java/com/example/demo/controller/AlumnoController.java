@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.entity.Carrito;
-import com.example.demo.service.CarritoService;
+import com.example.demo.entity.Alumno;
+import com.example.demo.service.AlumnoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 @RestController
-@RequestMapping("/api/carritos")
+@RequestMapping("/api/alumnos")
 @CrossOrigin(origins = "http://localhost:4200")
-public class CarritoController {
+public class AlumnoController {
     @Autowired
-    private CarritoService carritosService;
+    private AlumnoService alumnosService;
 
     @GetMapping
-    public ResponseEntity<List<Carrito>> readAll(){
+    public ResponseEntity<List<Alumno>> readAll(){
         try {
-            List<Carrito> carritoss = carritosService.readAll();
-            if(carritoss.isEmpty()) {
+            List<Alumno> alumnos = alumnosService.readAll();
+            if(alumnos.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>(carritoss, HttpStatus.OK);
+            return new ResponseEntity<>(alumnos, HttpStatus.OK);
         } catch (Exception e) {
             // TODO: handle exception
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -33,9 +33,9 @@ public class CarritoController {
 
     }
     @PostMapping
-    public ResponseEntity<Carrito> crear(@Valid @RequestBody Carrito carritos) {
+    public ResponseEntity<Alumno> crear(@Valid @RequestBody Alumno alumnos) {
         try {
-            Carrito c = carritosService.create(carritos);
+            Alumno c = alumnosService.create(alumnos);
             return new ResponseEntity<>(c, HttpStatus.CREATED);
         } catch (Exception e) {
             // TODO: handle exception
@@ -44,9 +44,9 @@ public class CarritoController {
 
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Carrito> getCarritoId(@PathVariable("id") Long id){
+    public ResponseEntity<Alumno> getAlumnoId(@PathVariable("id") Long id){
         try {
-            Carrito c = carritosService.read(id).get();
+            Alumno c = alumnosService.read(id).get();
             return new ResponseEntity<>(c, HttpStatus.CREATED);
         } catch (Exception e) {
             // TODO: handle exception
@@ -55,9 +55,9 @@ public class CarritoController {
 
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Carrito> delCarrito(@PathVariable("id") Long id){
+    public ResponseEntity<Alumno> delAlumno(@PathVariable("id") Long id){
         try {
-            carritosService.delete(id);
+            alumnosService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             // TODO: handle exception
@@ -66,13 +66,13 @@ public class CarritoController {
 
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCarrito(@PathVariable("id") Long id, @Valid @RequestBody Carrito carritos){
+    public ResponseEntity<?> updateAlumno(@PathVariable("id") Long id, @Valid @RequestBody Alumno alumnos){
 
-        Optional<Carrito> c = carritosService.read(id);
+        Optional<Alumno> c = alumnosService.read(id);
         if(c.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else {
-            return new ResponseEntity<>(carritosService.update(carritos), HttpStatus.OK);
+            return new ResponseEntity<>(alumnosService.update(alumnos), HttpStatus.OK);
         }
 
     }

@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.entity.Factura;
-import com.example.demo.service.FacturaService;
+import com.example.demo.entity.Nota;
+import com.example.demo.service.NotaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 @RestController
-@RequestMapping("/api/facturas")
+@RequestMapping("/api/notas")
 @CrossOrigin(origins = "http://localhost:4200")
-public class FacturaController {
+public class NotaController {
     @Autowired
-    private FacturaService facturasService;
-
+    private NotaService notasService;
+    
     @GetMapping
-    public ResponseEntity<List<Factura>> readAll(){
+    public ResponseEntity<List<Nota>> readAll(){
         try {
-            List<Factura> facturass = facturasService.readAll();
-            if(facturass.isEmpty()) {
+            List<Nota> notas = notasService.readAll();
+            if(notas.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>(facturass, HttpStatus.OK);
+            return new ResponseEntity<>(notas, HttpStatus.OK);
         } catch (Exception e) {
             // TODO: handle exception
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -33,9 +33,9 @@ public class FacturaController {
 
     }
     @PostMapping
-    public ResponseEntity<Factura> crear(@Valid @RequestBody Factura facturas) {
+    public ResponseEntity<Nota> crear(@Valid @RequestBody Nota notas) {
         try {
-            Factura c = facturasService.create(facturas);
+            Nota c = notasService.create(notas);
             return new ResponseEntity<>(c, HttpStatus.CREATED);
         } catch (Exception e) {
             // TODO: handle exception
@@ -44,9 +44,9 @@ public class FacturaController {
 
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Factura> getFacturaId(@PathVariable("id") Long id){
+    public ResponseEntity<Nota> getNotaId(@PathVariable("id") Long id){
         try {
-            Factura c = facturasService.read(id).get();
+            Nota c = notasService.read(id).get();
             return new ResponseEntity<>(c, HttpStatus.CREATED);
         } catch (Exception e) {
             // TODO: handle exception
@@ -55,9 +55,9 @@ public class FacturaController {
 
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Factura> delFactura(@PathVariable("id") Long id){
+    public ResponseEntity<Nota> delNota(@PathVariable("id") Long id){
         try {
-            facturasService.delete(id);
+            notasService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             // TODO: handle exception
@@ -66,13 +66,13 @@ public class FacturaController {
 
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateFactura(@PathVariable("id") Long id, @Valid @RequestBody Factura facturas){
+    public ResponseEntity<?> updateNota(@PathVariable("id") Long id, @Valid @RequestBody Nota notas){
 
-        Optional<Factura> c = facturasService.read(id);
+        Optional<Nota> c = notasService.read(id);
         if(c.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else {
-            return new ResponseEntity<>(facturasService.update(facturas), HttpStatus.OK);
+            return new ResponseEntity<>(notasService.update(notas), HttpStatus.OK);
         }
 
     }
